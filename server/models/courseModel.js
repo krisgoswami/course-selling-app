@@ -8,6 +8,4 @@ const adminSchema = new mongoose.Schema({
     published: Boolean,
 });
 
-const Course = mongoose.model("Course", adminSchema);
-
-module.exports = Course;
+export const Course = mongoose.model("Course", adminSchema);

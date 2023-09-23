@@ -1,4 +1,5 @@
 import { Admin } from "../models/adminModel.js";
+import { Course } from "../models/courseModel.js";
 import jwt from 'jsonwebtoken';
 import { authenticateJwt } from "../utils/jwtAuth.js";
 
@@ -83,4 +84,52 @@ export const adminLogin = async (req, res) => {
             error,
         });
     }
-} 
+}
+
+// *********admin create course*********
+
+export const createCourse = async (req, res) => {
+    try {
+        const course = new Course(req.body);
+        await course.save();
+        res.status(200).send({
+            message: "Course created successfully",
+            success: true,
+            course,
+            courseId: course.id,
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            message: 'Error creating course',
+            success: false,
+            error,
+        });
+    }
+}
+
+// *********admin update course*********
+
+export const updateCourse = async (req, res) => {
+    try {
+        const course = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!course) {
+            return res.status(404).send({
+                message: "Course not found",
+                success: false,
+            });
+        }
+        res.status(200).send({
+            message: "Course updated succefully",
+            success: true,
+            course,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            message: 'Error updating course',
+            success: false,
+            error,
+        });
+    }
+}

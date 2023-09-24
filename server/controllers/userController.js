@@ -121,8 +121,8 @@ export const purchaseCourse = async (req, res) => {
         const course = await Course.findById(courseId);
         if (course) {
             const user = await User.findOne({ email: req.user.email });
-            console.log(user);
-            console.log(course);
+            // console.log(user);
+            // console.log(course);
 
             if (user) {
                 user.purchasedCourses.push(course);
@@ -144,6 +144,33 @@ export const purchaseCourse = async (req, res) => {
         console.log(error);
         return res.status(400).send({
             message: 'Course not found',
+            success: false,
+            error,
+        });
+    }
+}
+
+// *********display purchased courses*********
+
+export const purchasedCourses = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.user.email }).populate('purchasedCourses');
+
+        if (user) {
+            res.status(200).send({
+                purchasedCourses: user.purchasedCourses || [],
+                success: true,
+            });
+        } else {
+            return res.status(400).send({
+                message: "User not found",
+                success: false,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send({
+            message: 'No courses found',
             success: false,
             error,
         });

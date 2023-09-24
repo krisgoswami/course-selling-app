@@ -1,6 +1,6 @@
 import express from 'express';
 import { authenticateJwt } from "../utils/jwtAuth.js";
-import { createUser, userLogin, getCourses, purchaseCourse } from '../controllers/userController.js';
+import { createUser, userLogin, getCourses, purchaseCourse, purchasedCourses } from '../controllers/userController.js';
 
 const router = express.Router();
 
@@ -8,8 +8,7 @@ router.post('/signup', createUser);
 router.post('/login', userLogin);
 router.get('/courses', authenticateJwt, getCourses);
 router.post('/purchaseCourse/:id', authenticateJwt, purchaseCourse);
-// router.put('/updateCourse/:id', authenticateJwt, updateCourse);
-// router.delete('/deleteCourse/:id', authenticateJwt, deleteCourse);
+router.get('/purchasedCourses', authenticateJwt, purchasedCourses);
 
 
 export default router;

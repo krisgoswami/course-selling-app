@@ -27,6 +27,7 @@ const Signup = () => {
                 password: inputs.password,
             });
             if (!data.success) {
+                localStorage.setItem('token', data.token);
                 alert("Signup success");
                 navigate('/login');
             } else {

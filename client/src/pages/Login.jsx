@@ -27,6 +27,7 @@ const Login = () => {
                 password: inputs.password,
             });
             if (data.success) {
+                localStorage.setItem('token', data.token);
                 alert("Login success");
                 navigate('/landing');
             } else {
@@ -34,6 +35,7 @@ const Login = () => {
             }
         } catch (error) {
             console.log(error);
+            alert("Email or password incorrect");
         }
     };
     return (

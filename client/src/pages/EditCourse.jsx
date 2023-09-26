@@ -1,21 +1,46 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../utils/helper';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const CreateCourse = () => {
+const EditCourse = () => {
 
     const navigate = useNavigate();
+    const id = useParams().id;
     const token = localStorage.getItem('token');
     // console.log(token);
 
-    const [inputs, setInputs] = useState({
-        title: "",
-        description: "",
-        price: "",
-        imageLink: "",
-        published: false,
-    });
+    const [inputs, setInputs] = useState({});
+    const [course, setCourse] = useState({});
+
+    const getCourseDetails = async () => {
+        try {
+            const { data } = await axios.get(`${BASE_URL}/api/v1/admin/course/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            console.log(data);
+            if (data?.success) {
+                const fetchedCourse = data?.course;
+                setCourse(fetchedCourse);
+                console.log(fetchedCourse);
+                setInputs({
+                    title: fetchedCourse.title,
+                    description: fetchedCourse.description,
+                    price: fetchedCourse.price,
+                    imageLink: fetchedCourse.imageLink,
+                    published: fetchedCourse.published,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getCourseDetails();
+    }, []);
 
     //handle input change
     const handleOnChange = (e) => {
@@ -30,7 +55,7 @@ const CreateCourse = () => {
 
         try {
             if (token) {
-                const { data } = await axios.post(`${BASE_URL}/api/v1/admin/createCourse`, {
+                const { data } = await axios.put(`${BASE_URL}/api/v1/admin/updateCourse/${id}`, {
                     title: inputs.title,
                     description: inputs.description,
                     price: inputs.price,
@@ -42,7 +67,7 @@ const CreateCourse = () => {
                     }
                 });
                 if (data.success) {
-                    alert("Course created");
+                    alert("Course updated");
                     navigate('/courses');
                 } else {
                     alert("Something went wrong");
@@ -109,11 +134,11 @@ const CreateCourse = () => {
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                     </select>
-                    <button type='submit'>Create</button>
+                    <button type='submit'>Update</button>
                 </div>
             </form>
         </div>
     )
 }
 
-export default CreateCourse;
+export default EditCourse;

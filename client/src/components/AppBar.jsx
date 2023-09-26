@@ -9,9 +9,12 @@ const AppBar = () => {
     const onSignupClick = () => {
         navigate('/signup');
     }
+    const onLogoClick = () => {
+        navigate('/courses');
+    }
     return (
         <div style={{ backgroundColor: "black", color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3>Corsez</h3>
+            <h3 style={{ cursor: 'pointer' }} onClick={onLogoClick}>Coursez</h3>
             <div>
                 <button onClick={onLoginClick}>Login</button>
                 <button onClick={onSignupClick}>Signup</button>

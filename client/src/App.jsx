@@ -6,6 +6,8 @@ import Signup from './pages/Signup';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import CreateCourse from './pages/CreateCourse';
+import EditCourse from './pages/EditCourse';
+import Courses from './pages/Courses';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,6 +21,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/create-course' element={<CreateCourse />} />
+          <Route path='/edit-course/:id' element={<EditCourse />} />
+          <Route path='/courses' element={<Courses />} />
         </Routes>
       </Router>
     </>

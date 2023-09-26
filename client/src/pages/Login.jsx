@@ -29,7 +29,7 @@ const Login = () => {
             if (data.success) {
                 localStorage.setItem('token', data.token);
                 alert("Login success");
-                navigate('/landing');
+                navigate('/courses');
             } else {
                 alert("Email or password incorrect");
             }

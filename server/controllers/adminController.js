@@ -179,7 +179,7 @@ export const updateCourse = async (req, res) => {
 export const deleteCourse = async (req, res) => {
     try {
         const courseId = req.params.id;
-        const course = await Course.findOneAndDelete(courseId);
+        const course = await Course.findByIdAndDelete(courseId);
         if (!course) {
             return res.status(404).send({
                 message: "Course not found",

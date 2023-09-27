@@ -79,9 +79,25 @@ const EditCourse = () => {
         }
     }
 
+    const handleDelete = async () => {
+        try {
+            const { data } = await axios.delete(`${BASE_URL}/api/v1/admin/deleteCourse/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            if (data?.success) {
+                alert("Course deleted");
+                navigate('/courses');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', width: 400 }}>
             <form onSubmit={handleOnSubmit}>
                 <div style={{ display: 'flex', flexDirection: "column" }}>
                     <label htmlFor='title' >Title</label>
@@ -137,6 +153,7 @@ const EditCourse = () => {
                     <button type='submit'>Update</button>
                 </div>
             </form>
+            <button type='submit' onClick={handleDelete}>Delete</button>
         </div>
     )
 }

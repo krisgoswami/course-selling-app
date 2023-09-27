@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { BASE_URL } from '../utils/helper';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { authActions } from "../redux/store";
 
 const Signup = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [inputs, setInputs] = useState({
         email: "",
@@ -26,10 +29,12 @@ const Signup = () => {
                 email: inputs.email,
                 password: inputs.password,
             });
-            if (!data.success) {
+            if (data.success) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem("userId", data?.admin._id);
+                dispatch(authActions.login());
                 alert("Signup success");
-                navigate('/login');
+                navigate('/courses');
             } else {
                 alert("Fill all fields");
             }

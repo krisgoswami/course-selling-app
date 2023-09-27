@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { BASE_URL } from '../utils/helper';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { authActions } from "../redux/store";
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [inputs, setInputs] = useState({
         email: "",
@@ -28,6 +31,8 @@ const Login = () => {
             });
             if (data.success) {
                 localStorage.setItem('token', data.token);
+                localStorage.setItem("userId", data?.admin._id);
+                dispatch(authActions.login());
                 alert("Login success");
                 navigate('/courses');
             } else {

@@ -42,8 +42,6 @@ const AppBar = () => {
 	return (
 		<>
 			<Flex alignItems={"center"} p={4} bg="purple.400">
-				{/* Logo */}
-
 				<Image src={logo} alt="Logo" boxSize="12" mr={2} />
 				<Box alignItems="center" color="white" fontWeight="bold" fontSize="2xl">
 					E-Learn

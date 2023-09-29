@@ -8,6 +8,7 @@ import EditCourse from './pages/EditCourse';
 import Courses from './pages/Courses';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { Toaster } from 'react-hot-toast';
 
 import React from 'react'
 
@@ -16,6 +17,7 @@ const NavRoutes = () => {
         <Provider store={store}>
             <Router>
                 <AppBar />
+                <Toaster />
                 <Routes>
                     <Route path='/' element={<Login />} />
                     <Route path='/landing' element={<Landing />} />

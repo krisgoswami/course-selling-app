@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from '../redux/store';
+import toast from 'react-hot-toast';
 import { Box, Flex, Spacer, Image, Button } from '@chakra-ui/react';
 import logo from '../assets/images/logo.png';
 
@@ -32,7 +33,9 @@ const AppBar = () => {
 		try {
 			dispatch(authActions.logout());
 			localStorage.clear();
-			alert("You've been logged out");
+			toast("You've been logged out", {
+				icon: '⚠️',
+			});
 			navigate('/login');
 		} catch (error) {
 			console.log(error);
@@ -44,7 +47,7 @@ const AppBar = () => {
 			<Flex alignItems={"center"} p={3} bg="purple.400">
 				<Image src={logo} alt="Logo" boxSize="12" mr={3} />
 				<Box alignItems="center" color="white" fontWeight="bold" fontSize="2xl">
-					E-Learn
+					E-Learn (Admin Panel)
 				</Box>
 
 				{isLogin &&
@@ -64,8 +67,10 @@ const AppBar = () => {
 				{/* if user is not logged in */}
 				{!isLogin && <>
 					<Button
+						width={90}
 						borderRadius="md"
 						textColor={"purple.400"}
+						background={"white"}
 						m={1}
 						onClick={onLoginClick}
 					>
@@ -73,8 +78,10 @@ const AppBar = () => {
 					</Button>
 
 					<Button
+						width={90}
 						borderRadius="md"
 						textColor={"purple.400"}
+						background={"white"}
 						m={1}
 						onClick={onSignupClick}
 					>
@@ -88,6 +95,7 @@ const AppBar = () => {
 						borderRadius="md"
 						textColor={"purple.400"}
 						m={1}
+						background={"white"}
 						onClick={handleLogout}
 					>
 						Logout

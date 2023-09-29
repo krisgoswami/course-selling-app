@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { authActions } from "../redux/store";
+import toast from 'react-hot-toast';
+import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
+
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -21,6 +24,8 @@ const Signup = () => {
             [e.target.name]: e.target.value,
         }));
     }
+
+    //signup logic
     const handleOnSubmit = async (e) => {
         e.preventDefault();
 
@@ -33,7 +38,7 @@ const Signup = () => {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem("userId", data?.admin._id);
                 dispatch(authActions.login());
-                alert("Signup success");
+                toast.success("Signup success");
                 navigate('/courses');
             } else {
                 alert("Fill all fields");
@@ -42,27 +47,66 @@ const Signup = () => {
             console.log(error);
         }
     };
+
+    const onLoginClick = () => {
+        navigate('/login');
+    };
+
+
     return (
-        <div>
-            <h1>Welcome. Sign up to continue</h1>
-            <form onSubmit={handleOnSubmit}>
-                <input
-                    type="email"
-                    placeholder="email"
-                    name='email'
-                    value={inputs.email}
-                    onChange={handleOnChange}
-                />
-                <input
-                    type="password"
-                    placeholder="password"
-                    name="password"
-                    value={inputs.password}
-                    onChange={handleOnChange}
-                />
-                <button type="submit">Signup</button>
-            </form>
-        </div>
+        <>
+            <Flex
+                direction="column"
+                align="center"
+                justify="center"
+                minHeight="100vh"
+                bg={"#f5f5f5"}
+                p={8}
+            >
+                <Box width="300px" p={8} borderRadius="md" shadow="lg" bg="white">
+                    <Text fontSize="xl" fontWeight="bold" mb={4}>
+                        Sign Up
+                    </Text>
+                    <Input
+                        placeholder="Email"
+                        name='email'
+                        value={inputs.email}
+                        onChange={handleOnChange}
+                        mb={4}
+                        variant="flushed"
+                        focusBorderColor="purple.400"
+                        size="md"
+                        autoFocus
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={inputs.password}
+                        onChange={handleOnChange}
+                        mb={6}
+                        variant="flushed"
+                        focusBorderColor="purple.400"
+                        size="md"
+                    />
+                    <Button
+                        borderRadius="md"
+                        width={'full'}
+                        textColor={"purple.400"}
+                        mb={4}
+                        onClick={handleOnSubmit}
+                    >
+                        Submit
+                    </Button>
+                    <Text>
+                        Have an account?{' '}
+                        <Text as="span" color="purple.400" cursor="pointer" onClick={onLoginClick}>
+                            Login here
+                        </Text>
+                    </Text>
+                </Box >
+            </Flex >
+        </>
     );
 };
 

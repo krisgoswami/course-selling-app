@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../utils/helper';
 import CoursePost from '../components/CoursePost';
+import { Box, Grid, Flex, Image, Text } from '@chakra-ui/react';
 
 
 const Courses = () => {
@@ -21,14 +22,6 @@ const Courses = () => {
             if (data.success) {
                 setCourses(data.courses);
             }
-            // if (data && data.success) {
-            //     if (Array.isArray(data?.courses)) {
-            //         setCourses(data && data.courses);
-            //     } else if (typeof data?.courses === "object") {
-            //         const courseArray = Object.values(data?.courses);
-            //         setCourses(courseArray);
-            //     }
-            // }
         } catch (error) {
             console.log(error);
         }
@@ -39,17 +32,21 @@ const Courses = () => {
     console.log(courses);
 
     return (
-        <div>
-            <h1>Courses</h1>
-            {courses?.map((course) => <CoursePost
-                id={course?._id}
-                title={course?.title}
-                description={course?.description}
-                price={course?.price}
-                imageLink={course?.imageLink}
-            />
-            )}
-        </div>
+        <>
+            <Box p={4}>
+                <Grid templateColumns="repeat(auto-fill, minmax(400px, 1fr))" gap={2}>
+                    {courses?.map((course) => <CoursePost
+                        id={course?._id}
+                        title={course?.title}
+                        description={course?.description}
+                        price={course?.price}
+                        imageLink={course?.imageLink}
+                        published={course?.published}
+                    />
+                    )}
+                </Grid>
+            </Box>
+        </>
     )
 }
 

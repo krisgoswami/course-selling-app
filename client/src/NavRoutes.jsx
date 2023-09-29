@@ -25,7 +25,7 @@ const NavRoutes = () => {
                     <Route path='/signup' element={<Signup />} />
                     <Route path='/create-course' element={<CreateCourse />} />
                     <Route path='/edit-course/:id' element={<EditCourse />} />
-                    <Route path='/courses' element={<Courses />} />
+                    <Route path='/all-courses' element={<Courses />} />
                 </Routes>
             </Router>
         </Provider>

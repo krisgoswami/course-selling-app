@@ -33,7 +33,7 @@ const Courses = () => {
 
     return (
         <>
-            <Box p={4}>
+            <Box m={4}>
                 <Grid templateColumns="repeat(auto-fill, minmax(400px, 1fr))" gap={2}>
                     {courses?.map((course) => <CoursePost
                         id={course?._id}

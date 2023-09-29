@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../utils/helper';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box, Button, FormControl, FormLabel, Input, Switch, Text, InputGroup, InputLeftAddon, Textarea } from '@chakra-ui/react';
+import toast from 'react-hot-toast';
+import { Box, Button, FormControl, FormLabel, Input, Switch, Text, InputGroup, InputLeftAddon, Textarea, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Modal } from '@chakra-ui/react';
 
 
 const EditCourse = () => {
@@ -77,10 +78,10 @@ const EditCourse = () => {
                     }
                 });
                 if (data.success) {
-                    alert("Course updated");
-                    navigate('/courses');
+                    toast.success("Course updated");
+                    navigate('/all-courses');
                 } else {
-                    alert("Something went wrong");
+                    toast.error("Something went wrong");
                 }
             }
         }
@@ -97,13 +98,14 @@ const EditCourse = () => {
                 }
             });
             if (data?.success) {
-                alert("Course deleted");
-                navigate('/courses');
+                toast.success("Course deleted");
+                navigate('/all-courses');
             }
         } catch (error) {
             console.log(error);
         }
     }
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
 
     return (
@@ -191,69 +193,38 @@ const EditCourse = () => {
                     <Button type="submit" textColor={"purple.400"} size="md" width="full" mb={4}>
                         Save Changes
                     </Button>
+
+                    <Button
+                        type="button"
+                        colorScheme='red'
+                        size="md"
+                        width="full"
+                        mb={4}
+                        onClick={() => setShowDeleteConfirmation(true)}
+                    >
+                        Delete Course
+                    </Button>
+
+                    <Modal isOpen={showDeleteConfirmation} onClose={() => setShowDeleteConfirmation(false)}>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalHeader>Delete Course</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>
+                                Are you sure you want to delete this course?
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button colorScheme="red" mr={3} onClick={handleDelete}>
+                                    Yes, Delete
+                                </Button>
+                                <Button variant="ghost" onClick={() => setShowDeleteConfirmation(false)}>
+                                    Cancel
+                                </Button>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
                 </form>
             </Box>
-
-
-
-            <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', width: 400 }}>
-                <form onSubmit={handleOnSubmit}>
-                    <div style={{ display: 'flex', flexDirection: "column" }}>
-                        <label htmlFor='title' >Title</label>
-                        <input
-                            type="text"
-                            id="title"
-                            name='title'
-                            value={inputs.title}
-                            onChange={handleOnChange}
-                        />
-
-
-                        <label htmlFor='description' >Description</label>
-                        <input
-                            type="text"
-                            id="description"
-                            name='description'
-                            value={inputs.description}
-                            onChange={handleOnChange}
-                        />
-
-
-                        <label htmlFor='price' >Price</label>
-                        <input
-                            type="text"
-                            id="price"
-                            name='price'
-                            value={inputs.price}
-                            onChange={handleOnChange}
-                        />
-
-
-                        <label htmlFor='img' >Image link</label>
-                        <input
-                            type="text"
-                            id="img"
-                            name='imageLink'
-                            value={inputs.imageLink}
-                            onChange={handleOnChange}
-                        />
-
-
-                        <label htmlFor='published' >Publish?</label>
-                        <select
-                            id="published"
-                            name="published"
-                            value={inputs.published}
-                            onChange={handleOnChange}
-                        >
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
-                        </select>
-                        <button type='submit'>Update</button>
-                    </div>
-                </form>
-                <button type='submit' onClick={handleDelete}>Delete</button>
-            </div>
         </>
     )
 }

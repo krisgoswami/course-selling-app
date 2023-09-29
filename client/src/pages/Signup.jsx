@@ -37,9 +37,10 @@ const Signup = () => {
             if (data.success) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem("userId", data?.admin._id);
+                localStorage.setItem("email", data?.admin.email);
                 dispatch(authActions.login());
                 toast.success("Signup success");
-                navigate('/courses');
+                navigate('/all-courses');
             } else {
                 alert("Fill all fields");
             }
@@ -60,10 +61,57 @@ const Signup = () => {
                 align="center"
                 justify="center"
                 minHeight="100vh"
-                bg={"#f5f5f5"}
+                bg={"#white"}
                 p={8}
+
+
             >
-                <Box width="300px" p={8} borderRadius="md" shadow="lg" bg="white">
+                <Box maxW="md" mb={200} p={8} borderWidth="1px" borderRadius="lg" boxShadow="md">
+                    <Text fontSize="xl" fontWeight="bold" mb={4}>
+                        Sign Up
+                    </Text>
+                    <form onSubmit={handleOnSubmit}>
+                        <Input
+                            placeholder="Email"
+                            name='email'
+                            value={inputs.email}
+                            onChange={handleOnChange}
+                            mb={4}
+                            variant="flushed"
+                            focusBorderColor="purple.400"
+                            size="md"
+                            autoFocus
+                        />
+                        <Input
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            value={inputs.password}
+                            onChange={handleOnChange}
+                            mb={6}
+                            variant="flushed"
+                            focusBorderColor="purple.400"
+                            size="md"
+                        />
+                        <Button
+                            type="submit"
+                            borderRadius="md"
+                            width={'full'}
+                            textColor={"purple.400"}
+                            mb={4}
+                        >
+                            Submit
+                        </Button>
+                        <Text>
+                            Have an account?{' '}
+                            <Text as="span" color="purple.400" cursor="pointer" onClick={onLoginClick}>
+                                Login here
+                            </Text>
+                        </Text>
+                    </form>
+                </Box>
+
+                {/* <Box width="300px" p={8} borderRadius="md" shadow="lg" bg="white">
                     <Text fontSize="xl" fontWeight="bold" mb={4}>
                         Sign Up
                     </Text>
@@ -104,7 +152,7 @@ const Signup = () => {
                             Login here
                         </Text>
                     </Text>
-                </Box >
+                </Box > */}
             </Flex >
         </>
     );

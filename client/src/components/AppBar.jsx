@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from '../redux/store';
 import toast from 'react-hot-toast';
-import { Box, Flex, Spacer, Image, Button } from '@chakra-ui/react';
+import { Box, Flex, Spacer, Image, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import logo from '../assets/images/logo.png';
 
 const AppBar = () => {
@@ -12,11 +13,10 @@ const AppBar = () => {
 	let isLogin = useSelector((state) => state.isLogin);
 	isLogin = isLogin || localStorage.getItem('userId');
 
+	let user = localStorage.getItem("email");
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	const [state, setState] = useState();
-
 
 	const onLoginClick = () => {
 		navigate('/login');
@@ -25,9 +25,9 @@ const AppBar = () => {
 		navigate('/signup');
 	}
 	const onCourseClick = () => {
-		navigate('/courses');
+		navigate('/all-courses');
 	}
-	const onCreateCourseClick = () => {
+	const handleCreateCourse = () => {
 		navigate('/create-course');
 	}
 
@@ -47,10 +47,17 @@ const AppBar = () => {
 
 	return (
 		<>
-			<Flex alignItems={"center"} p={3} bg="purple.400">
+			<Flex
+				align="center"
+				justify="space-between"
+				p={3}
+				// position="fixed"
+				width="100%"
+				// zIndex="999"
+				bg="purple.400">
 				<Image src={logo} alt="Logo" boxSize="12" mr={3} />
 				<Box alignItems="center" color="white" fontWeight="bold" fontSize="2xl">
-					E-Learn (Admin Panel)
+					Coursez (Admin Panel)
 				</Box>
 
 				{isLogin &&
@@ -60,14 +67,14 @@ const AppBar = () => {
 						fontSize={"lg"}
 						onClick={onCourseClick}
 					>
-						Courses
+						All Courses
 					</Button>
 				}
 
 
 				<Spacer />
 
-				{/* if user is not logged in */}
+				{/* if user is not logged in
 				{!isLogin && <>
 					<Button
 						width={90}
@@ -90,11 +97,20 @@ const AppBar = () => {
 					>
 						Sign Up
 					</Button>
-				</>}
+				</>} */}
 
 				{/* if user is logged in */}
 				{isLogin && <>
-					<Button
+					<Menu>
+						<MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme="purple">
+							{user}
+						</MenuButton>
+						<MenuList>
+							<MenuItem onClick={handleCreateCourse}>Create Course</MenuItem>
+							<MenuItem onClick={handleLogout}>Logout</MenuItem>
+						</MenuList>
+					</Menu>
+					{/* <Button
 						borderRadius="md"
 						colorScheme="indigo"
 						fontSize={"lg"}
@@ -112,7 +128,7 @@ const AppBar = () => {
 						onClick={handleLogout}
 					>
 						Logout
-					</Button>
+					</Button> */}
 				</>}
 			</Flex>
 		</>

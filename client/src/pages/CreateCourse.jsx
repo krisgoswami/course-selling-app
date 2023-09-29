@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { BASE_URL } from '../utils/helper';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { Box, Button, FormControl, FormLabel, Input, Switch, Text, InputGroup, InputLeftAddon, Textarea } from '@chakra-ui/react';
 
 const CreateCourse = () => {
@@ -51,10 +52,10 @@ const CreateCourse = () => {
                     }
                 });
                 if (data.success) {
-                    alert("Course created");
-                    navigate('/courses');
+                    toast.success("Course created");
+                    navigate('/all-courses');
                 } else {
-                    alert("Something went wrong");
+                    toast.error("Something went wrong");
                 }
             }
         }
@@ -152,24 +153,6 @@ const CreateCourse = () => {
                     </Button>
                 </form>
             </Box>
-
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <form onSubmit={handleOnSubmit}>
-                    <div style={{ display: 'flex', flexDirection: "column" }}>
-                        <label htmlFor='published' >Publish?</label>
-                        <select
-                            name="published"
-                            id="published"
-                            value={inputs.published}
-                            onChange={handleOnChange}
-                        >
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
-                        </select>
-                        <button type='submit'>Create</button>
-                    </div>
-                </form>
-            </div>
         </>
     )
 }

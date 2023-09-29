@@ -27,6 +27,9 @@ const AppBar = () => {
 	const onCourseClick = () => {
 		navigate('/courses');
 	}
+	const onCreateCourseClick = () => {
+		navigate('/create-course');
+	}
 
 	//handle logout
 	const handleLogout = () => {
@@ -91,6 +94,16 @@ const AppBar = () => {
 
 				{/* if user is logged in */}
 				{isLogin && <>
+					<Button
+						borderRadius="md"
+						colorScheme="indigo"
+						fontSize={"lg"}
+						m={1}
+						onClick={onCreateCourseClick}
+					>
+						Create Course
+					</Button>
+
 					<Button
 						borderRadius="md"
 						textColor={"purple.400"}

@@ -57,7 +57,7 @@ const AppBar = () => {
                 bg="purple.400">
                 <Image src={logo} alt="Logo" boxSize="12" mr={3} />
                 <Box alignItems="center" color="white" fontWeight="bold" fontSize="2xl">
-                    Coursez (Admin Panel)
+                    Coursez
                 </Box>
 
                 {isLogin &&

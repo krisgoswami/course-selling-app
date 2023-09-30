@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 //     published: Boolean,
 // });
 
-const adminSchema = new mongoose.Schema({
+const courseSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, "Title is required"],
@@ -29,6 +29,6 @@ const adminSchema = new mongoose.Schema({
         type: Boolean,
         required: [true, "published is required"],
     },
-})
+});
 
-export const Course = mongoose.model("Course", adminSchema);
+export const Course = mongoose.model("Course", courseSchema);

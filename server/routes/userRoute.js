@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/signup', createUser);
 router.post('/login', userLogin);
-router.get('/courses', authenticateJwt, getCourses);
+router.get('/courses', getCourses);
 router.post('/purchaseCourse/:id', authenticateJwt, purchaseCourse);
 router.get('/purchasedCourses', authenticateJwt, purchasedCourses);
 

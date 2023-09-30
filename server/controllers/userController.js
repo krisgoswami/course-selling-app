@@ -92,7 +92,7 @@ export const userLogin = async (req, res) => {
 
 export const getCourses = async (req, res) => {
     try {
-        const courses = await Course.findOne({ published: true });
+        const courses = await Course.find({ published: true });
         if (!courses) {
             return res.status(400).send({
                 message: "No courses found",

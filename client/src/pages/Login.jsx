@@ -62,20 +62,21 @@ const Login = () => {
 
     return (
         <>
-            <Flex justify="center" align="center" height="95vh">
+            <Flex justify="center" align="center" flexDirection={{ base: 'column', md: 'row' }} minHeight="95vh">
+
                 {/* Left Section - Welcome Message and Image */}
-                <Box flex="1" p={8} mr={350} mb={200}>
+                <Box flex={{ base: 'none', md: '1' }} p={8} mx={4} mb={8} textAlign={{ base: 'center', md: 'left' }}>
                     <Box maxW="700px" mx="auto" mb={6}>
                         <Image src={cover} alt="Welcome Image" boxSize="100%" objectFit="cover" />
                     </Box>
-                    <Text mt={4} fontSize="xl" textAlign="center">
-                        Welcome to the admin panel of Coursez. Please login to continue.
+                    <Text mt={4} fontSize={{ base: 'xl', md: '2xl' }} textAlign="center">
+                        Welcome to Coursez. Please login to continue.
                     </Text>
                 </Box>
 
                 {/* Right Section - Login Form */}
-                <Box maxW="md" mr={200} mb={200} p={8} borderWidth="1px" borderRadius="lg" boxShadow="md">
-                    <Text fontSize="xl" fontWeight="bold" mb={4}>
+                <Box maxW="md" p={8} borderWidth="1px" borderRadius="lg" boxShadow="md" mx={100} my={8} width={{ base: '100%', md: 'auto' }}>
+                    <Text fontSize={{ base: 'xl', md: '2xl' }} fontWeight="bold" mb={4} textAlign="center">
                         Login
                     </Text>
                     <form onSubmit={handleOnSubmit}>
@@ -104,13 +105,13 @@ const Login = () => {
                         <Button
                             type="submit"
                             borderRadius="md"
-                            width={'full'}
+                            width={{ base: 'full', md: 'auto' }}
                             textColor={"purple.400"}
                             mb={4}
                         >
                             Login
                         </Button>
-                        <Text>
+                        <Text textAlign="center">
                             Don't have an account?{' '}
                             <Text as="span" color="purple.400" cursor="pointer" onClick={onSignupClick}>
                                 Sign up here

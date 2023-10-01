@@ -12,6 +12,8 @@ import { Toaster } from 'react-hot-toast';
 
 import React from 'react'
 import CourseDetails from './pages/CourseDetails';
+import PurchasedCourses from './pages/PurchasedCourses';
+import Purchase from '../../client/src/pages/Purchase';
 
 const NavRoutes = () => {
     return (
@@ -28,6 +30,8 @@ const NavRoutes = () => {
                     {/* <Route path='/edit-course/:id' element={<EditCourse />} /> */}
                     <Route path='/all-courses' element={<Courses />} />
                     <Route path='/course/:id' element={<CourseDetails />} />
+                    <Route path='/purchase/:id' element={<Purchase />} />
+                    <Route path='/purchased-courses' element={<PurchasedCourses />} />
                 </Routes>
             </Router>
         </Provider>

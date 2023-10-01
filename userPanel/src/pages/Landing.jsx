@@ -139,11 +139,11 @@ const Landing = () => {
                 {/* Footer Section */}
                 <Box bg="blue.500" color="white" p={5} textAlign="center">
                     <Text fontSize="lg">
-                        <a href="/about" style={{ color: 'white' }}>
+                        <a href="/#" style={{ color: 'white' }}>
                             About Us
                         </a>{' '}
                         |{' '}
-                        <a href="/contact" style={{ color: 'white' }}>
+                        <a href="/#" style={{ color: 'white' }}>
                             Contact
                         </a>
                     </Text>

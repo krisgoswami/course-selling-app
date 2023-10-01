@@ -27,8 +27,8 @@ const AppBar = () => {
     const onCourseClick = () => {
         navigate('/all-courses');
     }
-    const handleCreateCourse = () => {
-        navigate('/create-course');
+    const purchasedCourses = () => {
+        navigate('/purchased-courses');
     }
     const handleLogoClick = () => {
         navigate('/');
@@ -64,7 +64,7 @@ const AppBar = () => {
                     Coursez
                 </Box>
 
-                {isLogin &&
+                {/* {isLogin &&
                     <Button
                         ml={100}
                         colorScheme="indigo"
@@ -73,7 +73,7 @@ const AppBar = () => {
                     >
                         All Courses
                     </Button>
-                }
+                } */}
 
 
                 <Spacer />
@@ -106,11 +106,11 @@ const AppBar = () => {
                 {/* if user is logged in */}
                 {isLogin && <>
                     <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme="purple">
+                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme="white">
                             {user}
                         </MenuButton>
                         <MenuList>
-                            <MenuItem onClick={handleCreateCourse}>Create Course</MenuItem>
+                            <MenuItem onClick={purchasedCourses}>Purchased Courses</MenuItem>
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         </MenuList>
                     </Menu>

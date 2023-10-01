@@ -4,37 +4,53 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BASE_URL } from '../utils/helper';
 import CourseCard from '../components/CourseCard';
+import toast from 'react-hot-toast';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const CourseDetails = () => {
 
+
+    //global state
+    let isLogin = useSelector((state) => state.isLogin);
+    isLogin = isLogin || localStorage.getItem('userId');
+    // let user = localStorage.getItem("email");
+
+    // const dispatch = useDispatch();
     const navigate = useNavigate();
     const id = useParams().id;
     const [course, setCourse] = useState({});
     const [inputs, setInputs] = useState({});
     const [courses, setCourses] = useState([]);
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
+    console.log(email, token);
 
+    // get details of a perticular course
     const getCourseDetails = async () => {
         try {
-            const { data } = await axios.get(`${BASE_URL}/api/v1/user/course/${id}`);
-            if (data?.success) {
-                setCourse(data?.course);
-                setInputs({
-                    title: data?.course.title,
-                    description: data?.course.description,
-                    price: data?.course.price,
-                    imageLink: data?.course.imageLink,
-                })
+            if (token) {
+                const { data } = await axios.get(`${BASE_URL}/api/v1/user/course/${id}`);
+                if (data?.success) {
+                    setCourse(data?.course);
+                    setInputs({
+                        title: data?.course.title,
+                        description: data?.course.description,
+                        price: data?.course.price,
+                        imageLink: data?.course.imageLink,
+                    })
+                }
             }
         } catch (error) {
             console.log(error);
         }
     }
 
+    //get all courses for display
     const getAllCourses = async () => {
         try {
             const { data } = await axios.get(`${BASE_URL}/api/v1/user/courses`);
-            console.log(data);
+            // console.log(data);
             if (data.success) {
                 setCourses(data.courses);
             }
@@ -50,13 +66,35 @@ const CourseDetails = () => {
         getAllCourses();
     }, []);
 
+    //navigations and click handles
+    const onLoginClick = () => {
+        navigate('/login');
+    }
     const clickBrowseCourse = () => {
         navigate('/all-courses');
     }
     const handleClick = () => {
-        // navigate(`/course/${id}`);
         window.location.reload(true);
     }
+
+    const handlePurchaseClick = () => {
+        navigate(`/purchase/${id}`);
+    }
+    // const handlePurchase = async () => {
+    //     try {
+    //         const { data } = await axios.post(`${BASE_URL}/api/v1/user/purchaseCourse/${id}`, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${token}`,
+    //             }
+    //         });
+    //         console.log(data);
+    //         if (data.success) {
+    //             toast.success("Course Purchased");
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     return (
         <>
@@ -79,9 +117,21 @@ const CourseDetails = () => {
                             <Heading mb={2} fontSize="2xl" color="white">{inputs.title}</Heading>
                             <Text mb={4} color="white">{inputs.description}</Text>
                             <Text fontSize="xl" fontWeight="bold" color="white">₹ {inputs.price}</Text>
-                            <Button mt={4} colorScheme="blue">
+                            {isLogin && <Button
+                                onClick={handlePurchaseClick}
+                                mt={4}
+                                colorScheme="blue"
+                            >
                                 Purchase Course
-                            </Button>
+                            </Button>}
+                            {!isLogin && <Button
+                                onClick={onLoginClick}
+                                mt={4}
+                                colorScheme="blue"
+                            >
+                                Login to Purchase
+                            </Button>}
+
                         </Box>
                     </Flex>
                 </Box>

@@ -1,25 +1,45 @@
 import { Box, Image, Text, Flex, Button } from '@chakra-ui/react';
+import { useNavigate, Link } from 'react-router-dom';
 
-const CourseCard = ({ title, imageLink, price }) => {
+
+const CourseCard = ({ id, title, imageLink, price }) => {
+
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate(`/course/${id}`);
+        window.location.reload(true);
+    }
+
     return (
         <>
-            <Box maxW="300px" minH="400px" width="100%" bgColor={'white'} borderRadius={5}> {/* Set a specific max width for the card */}
-                <Box maxW="300px" height="170px"> {/* Set a specific max width and height for the image */}
-                    <Image
-                        src={imageLink}
-                        alt={title}
-                        boxSize="100%"
-                        objectFit="cover"
-                        borderRadius="md"
-                    />
+            <Link to={`/course/${id}`}>
+                <Box
+                    maxW="300px"
+                    minH="400px"
+                    width="100%"
+                    bgColor={'white'}
+                    borderRadius={5}
+                >
+                    <Box
+                        maxW="300px"
+                        height="170px"
+                    >
+                        <Image
+                            src={imageLink}
+                            alt={title}
+                            boxSize="100%"
+                            objectFit="cover"
+                            borderRadius="md"
+                        />
+                    </Box>
+                    <Box p={4}>
+                        <Text minH="100px" fontWeight="bold" fontSize="lg">{title}</Text>
+                        <Flex justifyContent="space-between" mt={2}>
+                            <Text fontSize="md" fontWeight={'bold'}>₹ {price}</Text>
+                        </Flex>
+                    </Box>
                 </Box>
-                <Box p={4}>
-                    <Text minH="100px" fontWeight="bold" fontSize="lg">{title}</Text>
-                    <Flex justifyContent="space-between" mt={2}>
-                        <Text fontSize="md" fontWeight={'bold'}>₹ {price}</Text>
-                    </Flex>
-                </Box>
-            </Box>
+            </Link>
         </>
     )
 }
@@ -27,6 +47,8 @@ const CourseCard = ({ title, imageLink, price }) => {
 export default CourseCard;
 
 export const AllCoursesCard = ({ id, title, description, price, imageLink, published }) => {
+
+    const navigate = useNavigate();
     return (
         <Box
             maxW="lg"
@@ -47,9 +69,9 @@ export const AllCoursesCard = ({ id, title, description, price, imageLink, publi
             <Box p="4">
                 <Text fontSize="xl" fontWeight="semibold" mb="2">
                     {title}
-                    <Text as="span" fontSize="sm" color="gray.400" fontWeight={"bold"} mb="2">
+                    {/* <Text as="span" fontSize="sm" color="gray.400" fontWeight={"bold"} mb="2">
                         {!published && " not published"}
-                    </Text>
+                    </Text> */}
                 </Text>
                 <Text fontSize="md" color="gray.700" mb="2">
                     {description}
@@ -59,10 +81,10 @@ export const AllCoursesCard = ({ id, title, description, price, imageLink, publi
                 </Text>
                 <Flex justify="flex-end">
                     <Button
-                        textColor={"purple.400"}
+                        textColor={"blue.400"}
                         size="sm"
                         onClick={() => {
-                            navigate(`/edit-course/${id}`);
+                            navigate(`/course/${id}`);
                         }}>
                         View Course
                     </Button>

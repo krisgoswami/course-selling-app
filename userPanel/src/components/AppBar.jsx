@@ -30,6 +30,10 @@ const AppBar = () => {
     const handleCreateCourse = () => {
         navigate('/create-course');
     }
+    const handleLogoClick = () => {
+        navigate('/');
+    }
+
 
     //handle logout
     const handleLogout = () => {
@@ -54,9 +58,9 @@ const AppBar = () => {
                 // position="fixed"
                 width="100%"
                 // zIndex="999"
-                bg="purple.400">
+                bg="blue.500">
                 <Image src={logo} alt="Logo" boxSize="12" mr={3} />
-                <Box alignItems="center" color="white" fontWeight="bold" fontSize="2xl">
+                <Box alignItems="center" color="white" fontWeight="bold" fontSize="2xl" cursor={'pointer'} onClick={handleLogoClick}>
                     Coursez
                 </Box>
 
@@ -74,30 +78,30 @@ const AppBar = () => {
 
                 <Spacer />
 
-                {/* if user is not logged in
-				{!isLogin && <>
-					<Button
-						width={90}
-						borderRadius="md"
-						textColor={"purple.400"}
-						background={"white"}
-						m={1}
-						onClick={onLoginClick}
-					>
-						Login
-					</Button>
+                {/* if user is not logged in */}
+                {!isLogin && <>
+                    <Button
+                        width={90}
+                        borderRadius="md"
+                        textColor={"black"}
+                        background={"white"}
+                        m={1}
+                        onClick={onLoginClick}
+                    >
+                        Login
+                    </Button>
 
-					<Button
-						width={90}
-						borderRadius="md"
-						textColor={"purple.400"}
-						background={"white"}
-						m={1}
-						onClick={onSignupClick}
-					>
-						Sign Up
-					</Button>
-				</>} */}
+                    <Button
+                        width={90}
+                        borderRadius="md"
+                        textColor={"black"}
+                        background={"white"}
+                        m={1}
+                        onClick={onSignupClick}
+                    >
+                        Sign Up
+                    </Button>
+                </>}
 
                 {/* if user is logged in */}
                 {isLogin && <>

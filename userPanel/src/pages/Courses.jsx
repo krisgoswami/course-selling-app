@@ -29,6 +29,7 @@ const Courses = () => {
             <Box m={4}>
                 <Grid templateColumns="repeat(auto-fill, minmax(400px, 1fr))" gap={2}>
                     {courses?.map((course) => <AllCoursesCard
+                        key={course?._id}
                         id={course?._id}
                         title={course?.title}
                         description={course?.description}

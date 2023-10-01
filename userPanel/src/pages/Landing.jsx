@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Flex, Heading, Text, Button, Image } from '@chakra-ui/react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BASE_URL } from '../utils/helper';
 import CourseCard from '../components/CourseCard';
 
@@ -10,6 +10,7 @@ const Landing = () => {
 
     const navigate = useNavigate();
     const [courses, setCourses] = useState([]);
+    const id = useParams().id;
 
     const getAllCourses = async () => {
         try {
@@ -21,10 +22,31 @@ const Landing = () => {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+    // const getCourseDetails = async () => {
+    //     try {
+    //         const { data } = await axios.get(`${BASE_URL}/api/v1/user/course/${id}`);
+    //         if (data?.success) {
+    //             setCourse(data?.course);
+    //             setInputs({
+    //                 id: data?.course._id,
+    //                 title: data?.course.title,
+    //                 description: data?.course.description,
+    //                 price: data?.course.price,
+    //                 imageLink: data?.course.imageLink,
+    //             })
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
     useEffect(() => {
         getAllCourses();
     }, [])
+    // useEffect(() => {
+    //     getCourseDetails();
+    // }, [])
     console.log(courses);
 
     const clickBrowseCourse = () => {
@@ -35,21 +57,28 @@ const Landing = () => {
         <>
             <Box>
                 {/* Banner Section */}
-                <Box bg="blue.500" color="white" p={10} textAlign="center">
-                    <Heading mb={4} fontSize="3xl">
+                <Box bg="blue.100" color="white" p={10} textAlign="center">
+                    <Heading mb={4} fontSize="3xl" textColor="blackAlpha.800">
                         Discover Our Featured Courses
                     </Heading>
-                    <Text fontSize="lg">
+                    <Text textColor="blackAlpha.800" fontSize="lg">
                         Explore a wide range of courses to enhance your skills.
                     </Text>
 
                     {/* Scrollable Images */}
                     <Flex mt={6} overflowX="auto" justifyContent="space-between" gap={4}>
-                        <Image src="" boxSize="300px" objectFit="cover" borderRadius="md" mr={4} />
-                        {/* Add more images as needed */}
+                        {courses?.slice(0, 3).map((course) =>
+                            <Image key={course?._id} src={course?.imageLink} boxSize="300px" maxH="300px" maxW="600px" width="100%" objectFit="cover" borderRadius="md" m={4} />
+                        )}
                     </Flex>
 
-                    <Button mt={6} colorScheme="yellow" size="lg" onClick={clickBrowseCourse}>
+                    <Button
+                        mt={6}
+                        colorScheme="yellow"
+                        size="lg"
+                        boxShadow="lg"
+                        onClick={clickBrowseCourse}
+                    >
                         Browse Courses
                     </Button>
                 </Box>
@@ -80,6 +109,7 @@ const Landing = () => {
                                 >
                                     <CourseCard
                                         key={course?._id}
+                                        id={course?._id}
                                         title={course?.title}
                                         price={course?.price}
                                         imageLink={course?.imageLink}

@@ -7,6 +7,8 @@ import { Box, Grid, Flex, Image, Text } from '@chakra-ui/react';
 const Courses = () => {
 
     const [courses, setCourses] = useState([]);
+    const [randomizedCourses, setRandomizedCourses] = useState([]);
+
 
     const getAllCourses = async () => {
         try {
@@ -22,13 +24,17 @@ const Courses = () => {
     useEffect(() => {
         getAllCourses();
     }, [])
-    console.log(courses);
+    useEffect(() => {
+        const shuffledCourses = courses.slice().sort(() => Math.random() - 0.5);
+        setRandomizedCourses(shuffledCourses);
+    }, [courses]);
+    // console.log(shuffledCourses);
 
     return (
         <>
             <Box m={4}>
                 <Grid templateColumns="repeat(auto-fill, minmax(400px, 1fr))" gap={2}>
-                    {courses?.map((course) => <AllCoursesCard
+                    {randomizedCourses?.map((course) => <AllCoursesCard
                         key={course?._id}
                         id={course?._id}
                         title={course?.title}

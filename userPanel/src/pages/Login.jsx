@@ -30,6 +30,10 @@ const Login = () => {
     //login logic
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        if (!inputs.email || !inputs.password) {
+            toast.error("Fields cannot be empty");
+            return;
+        }
 
         try {
             const { data } = await axios.post(`${BASE_URL}/api/v1/user/login`, {
@@ -42,8 +46,9 @@ const Login = () => {
                 localStorage.setItem("email", data?.user.email);
                 dispatch(authActions.login());
                 toast.success("Logged in");
-                navigate('/all-courses');
-            } else {
+                navigate('/');
+            }
+            else {
                 toast.error("Email or password incorrect");
             }
         } catch (error) {
@@ -58,20 +63,21 @@ const Login = () => {
 
     return (
         <>
-            <Flex justify="center" align="center" height="95vh">
+            <Flex justify="center" align="center" flexDirection={{ base: 'column', md: 'row' }} minHeight="95vh">
+
                 {/* Left Section - Welcome Message and Image */}
-                <Box flex="1" p={8} mr={350} mb={200}>
+                <Box flex={{ base: 'none', md: '1' }} p={8} mx={4} mb={8} textAlign={{ base: 'center', md: 'left' }}>
                     <Box maxW="700px" mx="auto" mb={6}>
                         <Image src={cover} alt="Welcome Image" boxSize="100%" objectFit="cover" />
                     </Box>
-                    <Text mt={4} fontSize="xl" textAlign="center">
+                    <Text mt={4} fontSize={{ base: 'xl', md: '2xl' }} textAlign="center">
                         Welcome to Coursez. Please login to continue.
                     </Text>
                 </Box>
 
                 {/* Right Section - Login Form */}
-                <Box maxW="md" mr={200} mb={200} p={8} borderWidth="1px" borderRadius="lg" boxShadow="md">
-                    <Text fontSize="xl" fontWeight="bold" mb={4}>
+                <Box maxW="md" p={8} borderWidth="1px" borderRadius="lg" boxShadow="md" mx={100} my={8} width={{ base: '100%', md: 'auto' }}>
+                    <Text fontSize={{ base: 'xl', md: '2xl' }} fontWeight="bold" mb={4} textAlign="center">
                         Login
                     </Text>
                     <form onSubmit={handleOnSubmit}>
@@ -82,7 +88,7 @@ const Login = () => {
                             onChange={handleOnChange}
                             mb={4}
                             variant="flushed"
-                            focusBorderColor="purple.400"
+                            focusBorderColor="blue.500"
                             size="md"
                             autoFocus
                         />
@@ -94,21 +100,21 @@ const Login = () => {
                             onChange={handleOnChange}
                             mb={6}
                             variant="flushed"
-                            focusBorderColor="purple.400"
+                            focusBorderColor="blue.500"
                             size="md"
                         />
                         <Button
                             type="submit"
                             borderRadius="md"
-                            width={'full'}
-                            textColor={"purple.400"}
+                            width={{ base: 'full', md: 'auto' }}
+                            textColor={"blue.500"}
                             mb={4}
                         >
                             Login
                         </Button>
-                        <Text>
+                        <Text textAlign="center">
                             Don't have an account?{' '}
-                            <Text as="span" color="purple.400" cursor="pointer" onClick={onSignupClick}>
+                            <Text as="span" color="blue.500" cursor="pointer" onClick={onSignupClick}>
                                 Sign up here
                             </Text>
                         </Text>

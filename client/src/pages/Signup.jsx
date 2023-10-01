@@ -28,6 +28,10 @@ const Signup = () => {
     //signup logic
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        if (!inputs.email || !inputs.password) {
+            toast.error("Fields cannot be empty");
+            return;
+        }
 
         try {
             const { data } = await axios.post(`${BASE_URL}/api/v1/admin/signup`, {

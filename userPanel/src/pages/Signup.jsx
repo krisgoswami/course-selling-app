@@ -28,6 +28,10 @@ const Signup = () => {
     //signup logic
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        if (!inputs.email || !inputs.password) {
+            toast.error("Fields cannot be empty");
+            return;
+        }
 
         try {
             const { data } = await axios.post(`${BASE_URL}/api/v1/user/signup`, {
@@ -77,7 +81,7 @@ const Signup = () => {
                             onChange={handleOnChange}
                             mb={4}
                             variant="flushed"
-                            focusBorderColor="purple.400"
+                            focusBorderColor="blue.500"
                             size="md"
                             autoFocus
                         />
@@ -89,21 +93,21 @@ const Signup = () => {
                             onChange={handleOnChange}
                             mb={6}
                             variant="flushed"
-                            focusBorderColor="purple.400"
+                            focusBorderColor="blue.500"
                             size="md"
                         />
                         <Button
                             type="submit"
                             borderRadius="md"
                             width={'full'}
-                            textColor={"purple.400"}
+                            textColor={"blue.500"}
                             mb={4}
                         >
                             Submit
                         </Button>
                         <Text>
                             Have an account?{' '}
-                            <Text as="span" color="purple.400" cursor="pointer" onClick={onLoginClick}>
+                            <Text as="span" color="blue.500" cursor="pointer" onClick={onLoginClick}>
                                 Login here
                             </Text>
                         </Text>

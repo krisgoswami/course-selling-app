@@ -37,6 +37,10 @@ const CreateCourse = () => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        if (!inputs.title || !inputs.description || !inputs.price || !inputs.imageLink) {
+            toast.error("Fields cannot be empty");
+            return;
+        }
 
         try {
             if (token) {

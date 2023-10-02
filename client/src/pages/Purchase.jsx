@@ -47,6 +47,12 @@ const Purchase = () => {
                     placeholder="Enter Credit Card Number"
                     mb={4}
                 />
+                <Text
+                    textColor={"blackAlpha.500"}
+                    fontWeight={"bold"}
+                    mb={4}
+                >Enter this card number (1234-5678-1234-5678) to purchase the course.
+                </Text>
                 <Button colorScheme="blue" onClick={handlePurchase} mb={4}>
                     Purchase
                 </Button>

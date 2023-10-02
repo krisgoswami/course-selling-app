@@ -24,22 +24,19 @@ const CourseDetails = () => {
     const [courses, setCourses] = useState([]);
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');
-    console.log(email, token);
 
     // get details of a perticular course
     const getCourseDetails = async () => {
         try {
-            if (token) {
-                const { data } = await axios.get(`${BASE_URL}/api/v1/user/course/${id}`);
-                if (data?.success) {
-                    setCourse(data?.course);
-                    setInputs({
-                        title: data?.course.title,
-                        description: data?.course.description,
-                        price: data?.course.price,
-                        imageLink: data?.course.imageLink,
-                    })
-                }
+            const { data } = await axios.get(`${BASE_URL}/api/v1/user/course/${id}`);
+            if (data?.success) {
+                setCourse(data?.course);
+                setInputs({
+                    title: data?.course.title,
+                    description: data?.course.description,
+                    price: data?.course.price,
+                    imageLink: data?.course.imageLink,
+                })
             }
         } catch (error) {
             console.log(error);
@@ -65,6 +62,7 @@ const CourseDetails = () => {
     useEffect(() => {
         getAllCourses();
     }, []);
+
 
     //navigations and click handles
     const onLoginClick = () => {
@@ -99,11 +97,6 @@ const CourseDetails = () => {
     return (
         <>
             <Box>
-                {/* Banner Section */}
-                {/* <Box bg="blackAlpha.800" color="white" p={5} textAlign="center">
-                    <Image src={inputs.imageLink} alt={inputs.title} boxSize="100%" objectFit="cover" maxH={"400px"} mx={"auto"} />
-                </Box> */}
-
                 {/* Course Details Section */}
                 <Box p={10} bg="blackAlpha.800" minH={"300px"} maxH={"500px"}>
                     <Flex>

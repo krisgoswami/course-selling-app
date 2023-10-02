@@ -10,6 +10,7 @@ const Landing = () => {
 
     const navigate = useNavigate();
     const [courses, setCourses] = useState([]);
+    const [randomizedCourses, setRandomizedCourses] = useState([]);
     const id = useParams().id;
 
     const getAllCourses = async () => {
@@ -44,10 +45,13 @@ const Landing = () => {
     useEffect(() => {
         getAllCourses();
     }, [])
-    // useEffect(() => {
-    //     getCourseDetails();
-    // }, [])
-    console.log(courses);
+
+    //courses shuffles on every page reload
+    useEffect(() => {
+        const shuffledCourses = courses.slice().sort(() => Math.random() - 0.5);
+        setRandomizedCourses(shuffledCourses);
+    }, [courses]);
+    // console.log(courses);
 
     const clickBrowseCourse = () => {
         navigate('/all-courses');
@@ -67,7 +71,7 @@ const Landing = () => {
 
                     {/* Scrollable Images */}
                     <Flex mt={6} overflowX="auto" justifyContent="space-between" gap={4}>
-                        {courses?.slice(0, 3).map((course) =>
+                        {randomizedCourses?.slice(0, 3).map((course) =>
                             <Image key={course?._id} src={course?.imageLink} boxSize="300px" maxH="300px" maxW="600px" width="100%" objectFit="cover" borderRadius="md" m={4} />
                         )}
                     </Flex>

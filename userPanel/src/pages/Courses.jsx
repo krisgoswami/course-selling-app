@@ -24,6 +24,8 @@ const Courses = () => {
     useEffect(() => {
         getAllCourses();
     }, [])
+
+    //courses shuffle on every page reload
     useEffect(() => {
         const shuffledCourses = courses.slice().sort(() => Math.random() - 0.5);
         setRandomizedCourses(shuffledCourses);

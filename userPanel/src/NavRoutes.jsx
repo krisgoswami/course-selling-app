@@ -13,7 +13,7 @@ import { Toaster } from 'react-hot-toast';
 import React from 'react'
 import CourseDetails from './pages/CourseDetails';
 import PurchasedCourses from './pages/PurchasedCourses';
-import Purchase from '../../client/src/pages/Purchase';
+import Purchase from './pages/Purchase';
 
 const NavRoutes = () => {
     return (

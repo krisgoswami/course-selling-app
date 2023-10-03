@@ -7,6 +7,7 @@ Coursez is a web application built using the MERN stack (MongoDB, Express, React
 - **MongoDB**
 - **Express**
 - **React**
+- **Redux**
 - **Node.js**
 - **Chakra UI**
 - **Vite**

@@ -34,7 +34,6 @@ const AppBar = () => {
         navigate('/');
     }
 
-
     //handle logout
     const handleLogout = () => {
         try {
@@ -64,16 +63,15 @@ const AppBar = () => {
                     Coursez
                 </Box>
 
-                {/* {isLogin &&
-                    <Button
-                        ml={100}
-                        colorScheme="indigo"
-                        fontSize={"lg"}
-                        onClick={onCourseClick}
-                    >
-                        All Courses
-                    </Button>
-                } */}
+                <Button
+                    ml={100}
+                    colorScheme="indigo"
+                    fontSize={"lg"}
+                    onClick={onCourseClick}
+                >
+                    All Courses
+                </Button>
+
 
 
                 <Spacer />

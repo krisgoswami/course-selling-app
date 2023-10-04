@@ -51,7 +51,7 @@ export const AllCoursesCard = ({ id, title, description, price, imageLink, publi
     const navigate = useNavigate();
     return (
         <Box
-            maxW="lg"
+            maxW={{ base: '100%', md: 'lg' }} // Full width on small screens, limited width on medium and larger screens
             maxH="lg"
             borderWidth="1px"
             borderRadius="lg"
@@ -66,26 +66,24 @@ export const AllCoursesCard = ({ id, title, description, price, imageLink, publi
                 style={{ objectFit: 'cover', width: '100%', height: '250px' }}
             />
 
-            <Box p="4">
-                <Text fontSize="xl" fontWeight="semibold" mb="2">
+            <Box p={{ base: 2, md: 4 }}>
+                <Text fontSize={{ base: 'xl', md: '2xl' }} fontWeight="semibold" mb={{ base: 1, md: 2 }}>
                     {title}
-                    {/* <Text as="span" fontSize="sm" color="gray.400" fontWeight={"bold"} mb="2">
-                        {!published && " not published"}
-                    </Text> */}
                 </Text>
-                <Text fontSize="md" color="gray.700" mb="2">
+                <Text fontSize={{ base: 'md', md: 'lg' }} color="gray.700" mb={{ base: 1, md: 2 }}>
                     {description}
                 </Text>
-                <Text fontSize="lg" fontWeight="bold" mb="4">
+                <Text fontSize={{ base: 'lg', md: 'xl' }} fontWeight="bold" mb={{ base: 2, md: 4 }}>
                     ₹ {price}
                 </Text>
                 <Flex justify="flex-end">
                     <Button
                         textColor={"blue.400"}
-                        size="sm"
+                        size={{ base: 'sm', md: 'md' }} // Adjust button size for smaller screens
                         onClick={() => {
                             navigate(`/course/${id}`);
-                        }}>
+                        }}
+                    >
                         View Course
                     </Button>
                 </Flex>

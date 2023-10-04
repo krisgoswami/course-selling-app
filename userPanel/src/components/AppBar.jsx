@@ -54,57 +54,69 @@ const AppBar = () => {
                 align="center"
                 justify="space-between"
                 p={3}
-                // position="fixed"
-                width="100%"
-                // zIndex="999"
-                bg="blue.500">
-                <Image src={logo} alt="Logo" boxSize="12" mr={3} />
-                <Box alignItems="center" color="white" fontWeight="bold" fontSize="2xl" cursor={'pointer'} onClick={handleLogoClick}>
+                bg="blue.500"
+                direction={{ base: 'column', md: 'row' }} // Stack on small screens, row on medium and larger screens
+                wrap="wrap" // Wrap content on smaller screens
+            >
+                <Image src={logo} alt="Logo" boxSize="12" mb={{ base: 2, md: 0 }} mr={{ base: 0, md: 3 }} /> {/* Adjust margin on smaller screens */}
+                <Box
+                    alignItems="center"
+                    color="white"
+                    fontWeight="bold"
+                    fontSize={{ base: 'xl', md: '2xl' }} // Adjust font size for smaller screens
+                    cursor={'pointer'}
+                    onClick={handleLogoClick}
+                >
                     Coursez
                 </Box>
 
                 <Button
-                    ml={100}
+                    mt={{ base: 2, md: 0 }} // Adjust margin on smaller screens
                     colorScheme="indigo"
-                    fontSize={"lg"}
+                    fontSize={{ base: 'md', md: 'lg' }} // Adjust font size for smaller screens
                     onClick={onCourseClick}
                 >
                     All Courses
                 </Button>
 
-
-
                 <Spacer />
 
-                {/* if user is not logged in */}
-                {!isLogin && <>
-                    <Button
-                        width={90}
-                        borderRadius="md"
-                        textColor={"black"}
-                        background={"white"}
-                        m={1}
-                        onClick={onLoginClick}
-                    >
-                        Login
-                    </Button>
+                {!isLogin && (
+                    <>
+                        <Button
+                            width={{ base: '100%', md: 'auto' }} // Full width on small screens, auto width on medium and larger screens
+                            borderRadius="md"
+                            textColor="black"
+                            background="white"
+                            m={1}
+                            mb={{ base: 2, md: 0 }} // Adjust margin on smaller screens
+                            onClick={onLoginClick}
+                        >
+                            Login
+                        </Button>
 
-                    <Button
-                        width={90}
-                        borderRadius="md"
-                        textColor={"black"}
-                        background={"white"}
-                        m={1}
-                        onClick={onSignupClick}
-                    >
-                        Sign Up
-                    </Button>
-                </>}
+                        <Button
+                            width={{ base: '100%', md: 'auto' }} // Full width on small screens, auto width on medium and larger screens
+                            borderRadius="md"
+                            textColor="black"
+                            background="white"
+                            m={1}
+                            mb={{ base: 2, md: 0 }} // Adjust margin on smaller screens
+                            onClick={onSignupClick}
+                        >
+                            Sign Up
+                        </Button>
+                    </>
+                )}
 
-                {/* if user is logged in */}
-                {isLogin && <>
+                {isLogin && (
                     <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />} colorScheme="white">
+                        <MenuButton
+                            as={Button}
+                            rightIcon={<ChevronDownIcon />}
+                            colorScheme="white"
+                            mb={{ base: 2, md: 0 }} // Adjust margin on smaller screens
+                        >
                             {user}
                         </MenuButton>
                         <MenuList>
@@ -112,26 +124,7 @@ const AppBar = () => {
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         </MenuList>
                     </Menu>
-                    {/* <Button
-						borderRadius="md"
-						colorScheme="indigo"
-						fontSize={"lg"}
-						m={1}
-						onClick={onCreateCourseClick}
-					>
-						Create Course
-					</Button>
-
-					<Button
-						borderRadius="md"
-						textColor={"purple.400"}
-						m={1}
-						background={"white"}
-						onClick={handleLogout}
-					>
-						Logout
-					</Button> */}
-                </>}
+                )}
             </Flex>
         </>
     )

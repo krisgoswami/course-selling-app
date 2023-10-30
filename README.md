@@ -21,7 +21,6 @@ Coursez is a web application built using the MERN stack (MongoDB, Express, React
 - View purchased courses.
   
 ![Screenshot (64)](https://github.com/krisgoswami/course-selling-app/assets/91143716/7f6636f8-1ab1-4bf6-82ee-37ceb971f9b7)
-![Screenshot (82)](https://github.com/krisgoswami/course-selling-app/assets/91143716/ad4ea913-67ec-438d-b774-65bd3b4e4214)
 
 ### [Admin Panel](https://coursez-app-admin-panel.netlify.app)
 - Log in securely with admin credentials.
